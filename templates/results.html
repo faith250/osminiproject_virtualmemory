@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+</head>
+<body>
+    <h1>Page Replacement Results</h1>
+    <p>FIFO Total Page Faults: {{ fifo }}</p>
+    <p>LRU Total Page Faults: {{ lru }}</p>
+    <p>Optimal Total Page Faults: {{ optimal }}</p>
+    <p>Clock Total Page Faults: {{ clock }}</p>
+
+    <h2>Comparison Chart:</h2>
+    <img src="data:image/png;base64,{{ graph_url }}" alt="Comparison Chart">
+
+    <br><br>
+    <a href="/">Go Back</a>
+</body>
+</html>

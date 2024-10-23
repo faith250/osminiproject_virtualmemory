@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Replacement Algorithms</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            margin: 20px auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .results {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .chart {
+            width: 60%; /* Increased from 45% to 60% */
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 20px 0; /* Add margin for better spacing */
+        }
+
+        .chart img {
+            width: 100%; /* Ensure the image scales to the new width */
+            height: 500px; /* Increased height for a larger graph */
+        }
+    </style>
+
+</head>
+<body>
+
+<h1>Page Replacement Algorithms</h1>
+
+<form method="post">
+    <label for="pages">Page Sequence (comma-separated):</label>
+    <input type="text" id="pages" name="pages" placeholder="e.g., 7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3" required>
+
+    <label for="capacity">Memory Capacity:</label>
+    <input type="number" id="capacity" name="capacity" placeholder="Enter memory capacity" required>
+
+    <input type="submit" value="Run Algorithms">
+</form>
+
+{% if fifo_iterations %}
+    <div class="results">
+        <h2>Results</h2>
+
+        <h3>FIFO Iterations</h3>
+        <table>
+            <tr>
+                <th>Page</th>
+                <th>Memory</th>
+                <th>Page Faults</th>
+            </tr>
+            {% for iteration in fifo_iterations %}
+            <tr>
+                <td>{{ iteration.page }}</td>
+                <td>{{ iteration.memory }}</td>
+                <td>{{ iteration.page_fault }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3>LRU Iterations</h3>
+        <table>
+            <tr>
+                <th>Page</th>
+                <th>Memory</th>
+                <th>Page Faults</th>
+            </tr>
+            {% for iteration in lru_iterations %}
+            <tr>
+                <td>{{ iteration.page }}</td>
+                <td>{{ iteration.memory }}</td>
+                <td>{{ iteration.page_fault }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Optimal Iterations</h3>
+        <table>
+            <tr>
+                <th>Page</th>
+                <th>Memory</th>
+                <th>Page Faults</th>
+            </tr>
+            {% for iteration in opt_iterations %}
+            <tr>
+                <td>{{ iteration.page }}</td>
+                <td>{{ iteration.memory }}</td>
+                <td>{{ iteration.page_fault }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Clock Iterations</h3>
+        <table>
+            <tr>
+                <th>Page</th>
+                <th>Memory</th>
+                <th>Page Faults</th>
+            </tr>
+            {% for iteration in clock_iterations %}
+            <tr>
+                <td>{{ iteration.page }}</td>
+                <td>{{ iteration.memory }}</td>
+                <td>{{ iteration.page_fault }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="chart-container">
+            <div class="chart">
+                <h3>Bar Chart (Page Faults)</h3>
+                <img src="data:image/png;base64,{{ plot_url1 }}" alt="Bar Chart">
+            </div>
+
+            <div class="chart">
+                <h3>Line Graph (Page Faults Over Time)</h3>
+                <img src="data:image/png;base64,{{ plot_url2 }}" alt="Line Graph">
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+</body>
+</html>
